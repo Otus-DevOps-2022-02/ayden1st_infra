@@ -1,5 +1,7 @@
 name: 'Auto Assign'
-on: pull_request
+on:
+  pull_request:
+    branches-ignore: main
 
 jobs:
   add-reviews:
