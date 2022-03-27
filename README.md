@@ -48,7 +48,7 @@ testapp_port = 9292
 #### 7.1 Образ reddit-base
 Создана конфигурация для packer создающая образ виртуальной машины с установленными зависимостями для приложения.
 Запуск `cd packer&&packer build -var-file=variables.json ./ubuntu16.json`
-Файл variable.json создать по примеру variable.json.examples.
+Файл variable.json создать по примеру variable.json.example.
 Файл key.json можно создать следующими коммандами:
 ```
 SVC_ACCT="<имя сервисной учетной записи>"
@@ -66,7 +66,7 @@ yc resource-manager folder add-access-binding --id $FOLDER_ID \
 yc iam key create --service-account-id $ACCT_ID --output <путь до ключа>/key.json
 ```
 #### 7.2 Образ reddit-full
-Создана конфигурация для packer создающая образ виртуальной машины с установленными зависимостями и запущщеным приложением.
+Создана конфигурация для packer создающая образ виртуальной машины с установленными зависимостями и запущенным приложением.
 Запуск `cd packer&&packer build -var-file=variables.json ./immutable.json`
 Файлы variable.json и создать по примеру variable.json.examples.
 Скрипт создания виртуальной машины `config-sripts/create-reddit-vm.sh`
