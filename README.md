@@ -43,3 +43,30 @@ cloud-init конфигурация в файле `metadata.yaml`
 
 testapp_IP = 51.250.69.13
 testapp_port = 9292
+
+### 7 Лекция
+#### 7.1 Образ reddit-base
+Создана конфигурация для packer создающая образ виртуальной машины с установленными зависимостями для приложения.
+Запуск `cd packer&&packer build -var-file=variables.json ./ubuntu16.json`
+Файл variable.json создать по примеру variable.json.example.
+Файл key.json можно создать следующими коммандами:
+```
+SVC_ACCT="<имя сервисной учетной записи>"
+FOLDER_ID="<id папки>"
+yc iam service-account create --name $SVC_ACCT --folder-id $FOLDER_ID
+
+ACCT_ID=$(yc iam service-account get $SVC_ACCT | \
+grep ^id | \
+awk '{print $2}')
+
+yc resource-manager folder add-access-binding --id $FOLDER_ID \
+--role editor \
+--service-account-id $ACCT_ID
+
+yc iam key create --service-account-id $ACCT_ID --output <путь до ключа>/key.json
+```
+#### 7.2 Образ reddit-full
+Создана конфигурация для packer создающая образ виртуальной машины с установленными зависимостями и запущенным приложением.
+Запуск `cd packer&&packer build -var-file=variables.json ./immutable.json`
+Файлы variable.json и создать по примеру variable.json.examples.
+Скрипт создания виртуальной машины `config-sripts/create-reddit-vm.sh`
