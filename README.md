@@ -73,6 +73,17 @@ yc iam key create --service-account-id $ACCT_ID --output <путь до ключ
 Скрипт создания виртуальной машины `config-sripts/create-reddit-vm.sh`
 
 ### 8 Лекция
+Yandex провайдер
+```
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+      version = "0.73.0"
+    }
+  }
+}
+```
 Зеркало yandex провайдера
 ```
 terraform {
