@@ -73,6 +73,17 @@ yc iam key create --service-account-id $ACCT_ID --output <путь до ключ
 Скрипт создания виртуальной машины `config-sripts/create-reddit-vm.sh`
 
 ### 8 Лекция
+Зеркало yandex провайдера
+```
+terraform {
+  required_providers {
+    yandex = {
+      source = "terraform-registry.storage.yandexcloud.net/yandex-cloud/yandex"
+      version = "0.72.0"
+    }
+  }
+}
+```
 #### 8.1 Конфигурация terraform
 В папке `terraform` создана конфигурация инфраструктуры с описанием создания виртуальных машин и балансировщика в формате terraform (файлы `*.tf` ). Пример переменных для конфигурации вынесен в файл `terraform.tfvars.example`
 
