@@ -30,7 +30,8 @@ someinternalhost_IP = 10.128.0.32
 
 ### 6 Лекция
 Команда создания виртуальной машины
-```yc compute instance create \
+```
+yc compute instance create \
 --name reddit-app \
 --hostname reddit-app \
 --memory=4 \
@@ -70,3 +71,43 @@ yc iam key create --service-account-id $ACCT_ID --output <путь до ключ
 Запуск `cd packer&&packer build -var-file=variables.json ./immutable.json`
 Файлы variable.json и создать по примеру variable.json.examples.
 Скрипт создания виртуальной машины `config-sripts/create-reddit-vm.sh`
+
+### 8 Лекция
+Yandex провайдер
+```
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+      version = "0.73.0"
+    }
+  }
+}
+```
+Зеркало yandex провайдера
+```
+terraform {
+  required_providers {
+    yandex = {
+      source = "terraform-registry.storage.yandexcloud.net/yandex-cloud/yandex"
+      version = "0.72.0"
+    }
+  }
+}
+```
+#### 8.1 Конфигурация terraform
+В папке `terraform` создана конфигурация инфраструктуры с описанием создания виртуальных машин и балансировщика в формате terraform (файлы `*.tf` ). Пример переменных для конфигурации вынесен в файл `terraform.tfvars.example`
+
+Применение конфигурации:
+```
+terraform plan
+terraform apply --auto-approve
+```
+Удаление инфраструктуры:
+```
+terraform destroy
+```
+#### 8.2 Балансировщик
+В файле `lb.tf` описана конфигурация балансировщика для серверов приложения.
+Недостаток описания каждого сервера приложения заключается в колличестве кода, возможности ошибок. Так же база данных не вынесена в бэкэнд.
+Лишнего кода позволяет избежать использование мета-переменной `count`, задающую количество инстансов приложения и включающих их в группу балансировки.
