@@ -1,0 +1,5 @@
+bucket   = "bucket-name"
+region   = "region"
+key      = "prod/terraform.tfstate"
+access_key = "key"
+secret_key = "secret"
