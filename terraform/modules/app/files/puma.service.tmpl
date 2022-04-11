@@ -1,0 +1,23 @@
+[Unit]
+Description=Puma HTTP Server
+Wants=mongod.service
+After=network.target mongod.service
+
+[Service]
+Type=simple
+
+User=puma
+
+WorkingDirectory=/opt/reddit
+Environment=DATABASE_URL=${DB_IP}
+
+# SystemD will not run puma even if it is in your path. You must specify
+# an absolute URL to puma. For example /usr/local/bin/puma
+# Alternatively, create a binstub with `bundle binstubs puma --path ./sbin` in the WorkingDirectory
+ExecStart=/usr/local/bin/puma -C /opt/reddit/config/deploy/production.rb
+ExecStop=/usr/local/bin/puma -S /opt/reddit/config/deploy/production.rb
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

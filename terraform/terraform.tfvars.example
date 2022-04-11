@@ -1,10 +1,7 @@
 cloud_id                 = "11111111111111111111"
 folder_id                = "11111111111111111111"
 zone                     = "ru-central1-a"
-compute_zone             = "ru-central1-a"
-image_id                 = "111111111111111111111"
-public_key_path          = "~/.ssh/rsa.pub"
-private_key_path         = "~/.ssh/rsa"
 service_account_key_file = "~/key.json"
-subnet_id                = "111111111111111111111"
-app_count                = 1
+bucket_name             = "bucket"
+storage_key              = "1111111111111"
+storage_secret           = "Qq12345678"
