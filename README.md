@@ -169,7 +169,7 @@ null = {
 
 ### 10 Лекция
 
-#### 10.1
+#### 10.1 Динамический inventory
 Динамический inventory - исполняемыq файл, который гененрирует список в JSON формате (через API, парсере вывода утилит и т.п.) при обращении к файлу с параметрами:
 - `--list` - отдает в JSON формате группы со списком входящими в них хостами и переменными группы
 ```
@@ -210,3 +210,32 @@ null = {
 }
 ```
 В рамках задания создан скрипт `inventory.json` возвращающий данные с элементом `_meta` из состояния сред prod и stage, или одной из них.
+
+### 11 Лекция
+
+#### 11.1 Ansible
+Добавлены ansible плейбуки устанвки и настройки базы данных и приложения, `app.yml`, `db.yml`, `deploy.yml`.
+Установка всех:
+```
+ansible-playbook site.yml
+```
+#### 11.2 Packer & Ansible
+Добавлены ansible плейбуки для сборки образов с packer, `packer_app.yml`, `packer_db.yml`.
+Запуск сборки из корня репозитория:
+```
+packer build -var-file=packer/variables.json packer/app.json
+packer build -var-file=packer/variables.json packer/db.json
+```
+
+В ходе сборки может возникнуть ошибка <span style="color:red">failed to handshake</span>:
+В блок provisioners можно добавить параметр:
+```
+"extra_arguments": ["-vvvv"]
+```
+для дебага.
+
+Для испраления ошибки handshake нужно внести в `~/.ssh/config` строку:
+```
+Host *
+  PubkeyAcceptedKeyTypes=+ssh-dss
+```
