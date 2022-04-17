@@ -214,7 +214,7 @@ null = {
 ### 11 Лекция
 
 #### 11.1 Ansible
-Добавлены ansible плейбуки устанвки и настройки базы данных и приложения, `app.yml`, `db.yml`, `deploy.yml`.
+Добавлены ansible плейбуки установки и настройки базы данных и приложения, `app.yml`, `db.yml`, `deploy.yml`.
 Установка всех:
 ```
 ansible-playbook site.yml
