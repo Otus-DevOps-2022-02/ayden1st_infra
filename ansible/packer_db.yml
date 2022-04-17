@@ -1,0 +1,36 @@
+---
+- name: Db install for Packer
+  hosts: all
+  become: true
+  tasks:
+    - name: install dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+        state: present
+        update_cache: yes
+
+    - name: install repo key
+      apt_key:
+        url: https://www.mongodb.org/static/pgp/server-4.2.asc
+        state: present
+
+    - name: add repo MongoDB
+      apt_repository:
+        repo: "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.2 multiverse"
+        state: present
+        filename: mongodb-org-4.2
+
+    - name: install mongod
+      apt:
+        name:
+          - mongodb-org
+        state: present
+        update_cache: yes
+
+    - name: start service mongod
+      systemd:
+        name: mongod
+        state: started
+        enabled: true
