@@ -16,5 +16,5 @@ variable "db_ip" {
 }
 variable "enable_provisions" {
   description = "Enable provisions"
-  default     = true
+  default     = false
 }

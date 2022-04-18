@@ -7,7 +7,7 @@ from typing import List
 import sys
 from pathlib import Path
 
-ENV = ['prod', 'stage']
+ENV = ['prod','stage']
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Terraform inventory script")
@@ -20,9 +20,9 @@ def list_running_hosts():
     for env in ENV:
         path = (str(Path(__file__).parent.absolute()) + '/' + '../terraform/' + env)
         cmd = (f'terraform -chdir={path} show -json')
-        encode = subprocess.check_output(cmd.split()).rstrip()
-        state = json.loads(encode)
         try:
+            encode = subprocess.check_output(cmd.split()).rstrip()
+            state = json.loads(encode)
             res = state['values']['root_module']['child_modules']
             instances.extend(get_instances(res))
         except:
