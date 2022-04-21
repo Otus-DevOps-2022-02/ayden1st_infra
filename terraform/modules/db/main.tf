@@ -1,15 +1,15 @@
-# terraform {
-#   required_providers {
-#     yandex = {
-#       source  = "yandex-cloud/yandex"
-#       version = "0.73.0"
-#     }
-#     null = {
-#       source  = "mildred/null"
-#       version = "1.1.0"
-#     }
-#   }
-# }
+terraform {
+  required_providers {
+    yandex = {
+      source  = "yandex-cloud/yandex"
+      version = "0.73.0"
+    }
+    null = {
+      source  = "mildred/null"
+      version = "1.1.0"
+    }
+  }
+}
 
 resource "yandex_compute_instance" "db" {
   name     = "reddit-db"

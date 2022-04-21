@@ -1,11 +1,11 @@
-# terraform {
-#   required_providers {
-#     yandex = {
-#       source  = "yandex-cloud/yandex"
-#       version = "0.73.0"
-#     }
-#   }
-# }
+terraform {
+  required_providers {
+    yandex = {
+      source  = "yandex-cloud/yandex"
+      version = "0.73.0"
+    }
+  }
+}
 
 data "yandex_compute_image" "app_image" {
   folder_id = var.folder_id
