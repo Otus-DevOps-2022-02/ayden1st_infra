@@ -1,3 +1,5 @@
+[![Validate](https://github.com/Otus-DevOps-2022-02/ayden1st_infra/actions/workflows/validate.yml/badge.svg)](https://github.com/Otus-DevOps-2022-02/ayden1st_infra/actions/workflows/validate.yml)
+
 # ayden1st_infra
 ayden1st Infra repository
 
@@ -239,3 +241,19 @@ packer build -var-file=packer/variables.json packer/db.json
 Host *
   PubkeyAcceptedKeyTypes=+ssh-dss
 ```
+
+### Лекция 12
+Созданы роли для установки app, db. Отредактированы плеубки для использования ролей. Созданы два инвентаря для сред stage и prod с отдельными переменными. Добавлена роль jdauphant.nginx из ansible-galaxy для установки http_proxy для app. Добавлены зашифрованные переменные для плейбука users.yml через ansible-vault, ключ в vault.key (создана заглушка vault.key.example)
+Запуск полной установки:
+```
+ansible-playbook playbooks/site.yml #stage
+ansible-playbook -i enviroments/prod/inventory playbooks/site.yml
+```
+#### 12.1
+Для динамического инвентаря под окружения stage, prod адаптирован скрипт inventory.py получающий JSON из state terraform.
+
+#### 12.2
+Написаны проверки GitHub Actions через TravisCI, добавлены в файл workflows/validate.yml
+В каталог ansible добавлен конфиг .config/ansible-lint.yml для ansible-lint.
+Блок для проверки terraform закомментирован для корректного прохождения тестов домашней работы с terraform.
+Добавлен бэйдж в файл README.md
