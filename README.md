@@ -254,6 +254,8 @@ ansible-playbook -i enviroments/prod/inventory playbooks/site.yml
 
 #### 12.2
 Написаны проверки GitHub Actions через TravisCI, добавлены в файл workflows/validate.yml
+- packer validate
+- terraform validate
+- ansible-lint
 В каталог ansible добавлен конфиг .config/ansible-lint.yml для ansible-lint.
-Блок для проверки terraform закомментирован для корректного прохождения тестов домашней работы с terraform.
 Добавлен бэйдж в файл README.md
