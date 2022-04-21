@@ -26,32 +26,32 @@ jobs:
         packer validate -var-file=packer/variables.json packer/app.json
         packer validate -var-file=packer/variables.json packer/db.json
 
-    # - name: Run terraform validate
-    #   run: |
-    #     cd terraform/stage
-    #     mv terraform.tfvars.example terraform.tfvars
-    #     rm backend.tf
-    #     terraform init
-    #     cd ../prod
-    #     mv terraform.tfvars.example terraform.tfvars
-    #     rm backend.tf
-    #     terraform init
-    #     cd ../..
-    #     terraform -chdir=terraform/stage validate
-    #     terraform -chdir=terraform/prod validate
+    - name: Run terraform validate
+      run: |
+        cd terraform/stage
+        mv terraform.tfvars.example terraform.tfvars
+        rm backend.tf
+        terraform init
+        cd ../prod
+        mv terraform.tfvars.example terraform.tfvars
+        rm backend.tf
+        terraform init
+        cd ../..
+        terraform -chdir=terraform/stage validate
+        terraform -chdir=terraform/prod validate
 
-    # - uses: terraform-linters/setup-tflint@v1
-    #   name: Setup TFLint
-    #   with:
-    #     tflint_version: latest
+    - uses: terraform-linters/setup-tflint@v1
+      name: Setup TFLint
+      with:
+        tflint_version: latest
 
-    # - name: Init TFLint
-    #   run: tflint --init
+    - name: Init TFLint
+      run: tflint --init
 
-    # - name: Run TFLint
-    #   run: |
-    #     tflint terraform/stage
-    #     tflint terraform/prod
+    - name: Run TFLint
+      run: |
+        tflint terraform/stage
+        tflint terraform/prod
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
