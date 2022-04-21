@@ -243,7 +243,7 @@ Host *
 ```
 
 ### Лекция 12
-Созданы роли для установки app, db. Отредактированы плеубки для использования ролей. Созданы два инвентаря для сред stage и prod с отдельными переменными. Добавлена роль jdauphant.nginx из ansible-galaxy для установки http_proxy для app. Добавлены зашифрованные переменные для плейбука users.yml через ansible-vault, ключ в vault.key (создана заглушка vault.key.example)
+Созданы роли для установки app, db. Отредактированы плейбуки для использования ролей. Созданы два инвентаря для сред stage и prod с отдельными переменными. Добавлена роль jdauphant.nginx из ansible-galaxy для установки http_proxy для app. Добавлены зашифрованные переменные для плейбука users.yml через ansible-vault, ключ в vault.key (создана заглушка vault.key.example)
 Запуск полной установки:
 ```
 ansible-playbook playbooks/site.yml #stage
