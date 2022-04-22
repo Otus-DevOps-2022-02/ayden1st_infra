@@ -1,0 +1,13 @@
+mock_modules:
+    - bundler
+
+mock_roles:
+    - jdauphant.nginx
+
+warn_list:
+    - experimental  # all rules tagged as experimental
+    - fqcn-builtins  # Use FQCN for builtin actions.
+    - git-latest  # Git checkouts must contain explicit version.
+    - meta-incorrect  # meta/main.yml default values should be changed.
+    - meta-no-info  # meta/main.yml should contain relevant info.
+    - yaml  # Violations reported by yamllint.

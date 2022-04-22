@@ -1,0 +1,70 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout this repo
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
+
+    - name: Run packer validate
+      run: |
+        mv packer/variables.json.example packer/variables.json
+        packer validate -var-file=packer/variables.json packer/app.json
+        packer validate -var-file=packer/variables.json packer/db.json
+
+    - name: Run terraform validate
+      run: |
+        cd terraform/stage
+        mv terraform.tfvars.example terraform.tfvars
+        rm backend.tf
+        terraform init
+        cd ../prod
+        mv terraform.tfvars.example terraform.tfvars
+        rm backend.tf
+        terraform init
+        cd ../..
+        terraform -chdir=terraform/stage validate
+        terraform -chdir=terraform/prod validate
+
+    - uses: terraform-linters/setup-tflint@v1
+      name: Setup TFLint
+      with:
+        tflint_version: latest
+
+    - name: Init TFLint
+      run: tflint --init
+
+    - name: Run TFLint
+      run: |
+        tflint terraform/stage
+        tflint terraform/prod
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install ansible-lint
+
+    - name: Lint playbook
+      run: |
+        cd ansible
+        mv vault.key.example vault.key
+        ansible-lint playbooks/* -vvv
