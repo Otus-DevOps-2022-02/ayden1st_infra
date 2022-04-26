@@ -259,3 +259,29 @@ ansible-playbook -i enviroments/prod/inventory playbooks/site.yml
 - ansible-lint
 В каталог ansible добавлен конфиг .config/ansible-lint.yml для ansible-lint.
 Добавлен бэйдж в файл README.md
+
+### Лекция 13
+Установлен Vagrant и VirtualBox. При запуске Vagrantfile, возможно возникновение ошибки:
+```
+Stderr: VBoxManage: error: Code E_ACCESSDENIED (0x80070005) - Access denied (extended info not available)
+VBoxManage: error: Context: "EnableStaticIPConfig(Bstr(pszIp).raw(), Bstr(pszNetmask).raw())" at line 242 of file VBoxManageHosto
+nly.cpp
+```
+Для исправления нужно в файл `/etc/vbox/networks.conf` прописать параметр `* 10.0.0.0/8`.
+Доработаны роли app и db для провиженинга в vagrant.
+Установлены утилиты тестирования molecule, testinfra.
+Создание venv для python и установка зависимостей:
+```
+python3 -m venv env ~/env/otus
+source ~/env/otus/bin/activate
+python3 -m pip install -r ansible/requirements.txt
+```
+В роли db создан сценарий тестирования:
+```
+molecule init scenario -r db -d vagrant
+```
+Добавлен тест на доступность порта mongod. Запуск тестов:
+```
+molecule test --all
+```
+Плейбуки для сборки образов `app`, `db` в packer доработаны на испольование ролей. Путь до ролей задается ENV `ANSIBLE_ROLES_PATH`.
